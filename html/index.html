@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0;">
+        <title>橡皮擦效果</title>
+        <link rel="stylesheet" href="../css/reset.css">
+        <link rel="stylesheet" href="../css/index.css">
+    </head>
+    <body>
+        <div class="view">
+            <div class="page1">
+                <div class="p-wrapper center-x clearfix">
+                    <p>时代在追求着改变</p>
+                    <p>匆忙的脚步</p>
+                    <p>使你无暇顾及周边的景色</p>
+                    <p>儿时的梦想也渐渐退去了颜色</p>
+                </div>
+                <div class="dream-wrapper center-x"></div>
+            </div>
+            <div class="box" id="bb">
+                <div class="machine center-xy"></div>
+                <canvas id="cas"></canvas>
+                <div class="box-inner">
+                    <div class="box-content center-x"></div>
+                    <a class="box-btn center-x"></a>
+                </div>
+            </div>
+        </div>
+        <script src="../js/reset.js"></script>
+        <script charset="utf-8">
+            window.onload = function(){
+                setTimeout(function(){
+                    document.getElementsByClassName('page1')[0].style.display = 'none';
+                    document.getElementsByClassName('machine')[0].style.opacity = '1';
+                },7500);
+                window.rem = document.documentElement.clientWidth / 15;
+            }
+            //获取canvas，初始化canvas
+            var canvas = document.getElementById("cas"), ctx = canvas.getContext("2d");
+            var x1, y1, a = 30, timeout, totimes = 100, distance = 30;
+            var saveDot = [];
+            //canvas的盒子
+            var canvasBox = document.getElementById("bb");
+            canvas.width = canvasBox.clientWidth;
+            canvas.height = canvasBox.clientHeight;
+
+            //定义img对象
+            var img = new Image();
+            img.src = "../images/index/pic2.png";
+            img.onload = function () {
+                var w = canvas.height*img.width/img.height;
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                setTimeout(function(){
+                    ctx.font = "0.6rem 微软雅黑";
+                    ctx.fillStyle = '#fff';
+                    ctx.fillText("发现了一个时光机", 1.4*window.rem, 2 * window.rem);
+                    ctx.fillText("快去擦亮它吧", 1.4*window.rem, 2.8 * window.rem);
+                    tapClip()
+                },8500)
+            };
+            function getClipArea(e, hastouch){
+                var x = hastouch ? e.targetTouches[0].pageX : e.clientX;
+                var y = hastouch ? e.targetTouches[0].pageY : e.clientY;
+                var ndom = canvas;
+                while(ndom.tagName!=="BODY"){
+                    x -= ndom.offsetLeft;
+                    y -= ndom.offsetTop;
+                    ndom = ndom.parentNode;
+                }
+                return {
+                    x: x,
+                    y: y
+                }
+            }
+            //通过修改globalCompositeOperation来达到擦除的效果
+            function tapClip() {
+                var hastouch = "ontouchstart" in window ? true : false,
+                        tapstart = hastouch ? "touchstart" : "mousedown",
+                        tapmove = hastouch ? "touchmove" : "mousemove",
+                        tapend = hastouch ? "touchend" : "mouseup";
+                var area;
+                var x2,y2;
+                ctx.lineCap = "round";
+                ctx.lineJoin = "round";
+                ctx.lineWidth = a * 2;
+                ctx.globalCompositeOperation = "destination-out";
+                window.addEventListener(tapstart, function (e) {
+                    var that = this;
+                    clearTimeout(timeout);
+                    e.preventDefault();
+                    area = getClipArea(e, hastouch);
+                    x1 = area.x;
+                    y1 = area.y;
+                    drawLine(x1, y1);
+                    this.addEventListener(tapmove, tapmoveHandler);
+                    this.addEventListener(tapend, function () {
+                        this.removeEventListener(tapmove, tapmoveHandler);
+                        //检测擦除状态
+                        timeout = setTimeout(function () {
+                            var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                            var dd = 0;
+                            for (var x = 0; x < imgData.width; x += distance) {
+                                for (var y = 0; y < imgData.height; y += distance) {
+                                    var i = (y * imgData.width + x) * 4;
+                                    if (imgData.data[i + 3] > 0) { dd++ }
+                                }
+                            }
+                            if (dd / (imgData.width * imgData.height / (distance * distance)) < 0.4) {
+                                canvas.className = "noOp";
+//                                setTimeout(function(){
+//                                    canvas.style.display = 'none';
+//                                },500);
+                                that.addEventListener(tapstart,function(e){
+                                    window.location.href = 'page.html'
+                                })
+                                document.getElementsByClassName('box-inner')[0].classList.add('show');
+                            }
+                        }, totimes)
+                    });
+                    function tapmoveHandler(e) {
+                        clearTimeout(timeout);
+                        e.preventDefault();
+                        area = getClipArea(e, hastouch);
+                        x2 = area.x;
+                        y2 = area.y;
+                        drawLine(x1, y1, x2, y2);
+                        x1 = x2;
+                        y1 = y2;
+                    }
+                })
+            }
+            function drawLine(x1, y1, x2, y2){
+                ctx.save();
+                ctx.beginPath();
+                if(arguments.length==2){
+                    ctx.arc(x1, y1, a, 0, 2 * Math.PI);
+                    ctx.fill();
+                }else {
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.stroke();
+                }
+                ctx.restore();
+            }
+            //使用clip来达到擦除效果
+            function otherClip() {
+                var hastouch = "ontouchstart" in window ? true : false,
+                        tapstart = hastouch ? "touchstart" : "mousedown",
+                        tapmove = hastouch ? "touchmove" : "mousemove",
+                        tapend = hastouch ? "touchend" : "mouseup";
+                var area;
+                canvas.addEventListener(tapstart, function (e) {
+                    clearTimeout(timeout);
+                    e.preventDefault();
+                    area = getClipArea(e, hastouch);
+                    x1 = area.x;
+                    y1 = area.y;
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(x1, y1, a, 0, 2 * Math.PI);
+                    ctx.clip();
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.restore();
+                    canvas.addEventListener(tapmove, tapmoveHandler);
+                    canvas.addEventListener(tapend, function () {
+                        canvas.removeEventListener(tapmove, tapmoveHandler);
+                        timeout = setTimeout(function () {
+                            var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                            var dd = 0;
+                            for (var x = 0; x < imgData.width; x += distance) {
+                                for (var y = 0; y < imgData.height; y += distance) {
+                                    var i = (y * imgData.width + x) * 4;
+                                    if (imgData.data[i + 3] > 0) {
+                                        dd++
+                                    }
+                                }
+                            }
+                            if (dd / (imgData.width * imgData.height / (distance * distance)) < 0.4) {
+                                canvas.className = "noOp";
+                            }
+                        }, totimes)
+                    });
+                    function tapmoveHandler(e) {
+                        e.preventDefault();
+                        area = getClipArea(e, hastouch);
+                        x2 = area.x;
+                        y2 = area.y;
+                        var asin = a * Math.sin(Math.atan((y2 - y1) / (x2 - x1)));
+                        var acos = a * Math.cos(Math.atan((y2 - y1) / (x2 - x1)));
+                        var x3 = x1 + asin;
+                        var y3 = y1 - acos;
+                        var x4 = x1 - asin;
+                        var y4 = y1 + acos;
+                        var x5 = x2 + asin;
+                        var y5 = y2 - acos;
+                        var x6 = x2 - asin;
+                        var y6 = y2 + acos;
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.arc(x2, y2, a, 0, 2 * Math.PI);
+                        ctx.clip();
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.restore();
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.moveTo(x3, y3);
+                        ctx.lineTo(x5, y5);
+                        ctx.lineTo(x6, y6);
+                        ctx.lineTo(x4, y4);
+                        ctx.closePath();
+                        ctx.clip();
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.restore();
+                        x1 = x2;
+                        y1 = y2;
+                    }
+                })
+            }
+        </script>
+    </body>
+</html>

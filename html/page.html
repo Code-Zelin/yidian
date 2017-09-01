@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+    Remove this if you use the .htaccess -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>JS打字机效果</title>
+    <meta name="description" content="">
+    <meta name="author" content="Administrator">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0">
+    <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+    <link rel="stylesheet" href="../css/reset.css">
+    <style>
+        html,body{
+            position: relative;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+        body{
+            background: url("../images/page/1.jpg") no-repeat center;
+            -webkit-background-size: cover;
+            background-size: cover;
+        }
+        .content-wrapper{
+            position: absolute;
+            height: 20rem;
+            overflow: scroll;
+            width: 10rem;
+            /*top: 2rem;*/
+        }
+        .content-wrapper>div{
+            font-size: .4rem;
+            color: #fff;
+            width: 10rem;
+            word-wrap : break-word ;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper center-xy">
+        <div class="content-inner">
+            <div id="p1"></div>
+            <div id="p2"></div>
+            <div id="p3"></div>
+            <div id="p4"></div>
+            <div id="p5"></div>
+            <div id="p6"></div>
+            <div id="p7"></div>
+            <div id="p8"></div>
+            <div id="p9"></div>
+            <div id="p10"></div>
+            <div id="p11"></div>
+            <div id="p12"></div>
+            <div id="p13"></div>
+            <div id="p14"></div>
+            <div id="p15"></div>
+            <div id="p16"></div>
+            <div id="p40"></div>
+            <div id="p17"></div>
+            <div id="p18"></div>
+            <div id="p19"></div>
+            <div id="p20"></div>
+            <div id="p21"></div>
+            <div id="p22"></div>
+            <div id="p23"></div>
+            <div id="p24"></div>
+            <div id="p25"></div>
+            <div id="p26"></div>
+            <div id="p27"></div>
+            <div id="p28"></div>
+            <div id="p29"></div>
+            <div id="p30"></div>
+            <div id="p31"></div>
+            <div id="p32"></div>
+            <div id="p33"></div>
+            <div id="p34"></div>
+            <div id="p35"></div>
+            <div id="p36"></div>
+            <div id="p37"></div>
+            <div id="p38"></div>
+            <div id="p39"></div>
+        </div>
+    </div>
+
+    <script src="../js/zepto.min.js"></script>
+    <script src="../js/reset.js"></script>
+    <script src="../js/theater.min.js"></script>
+    <script>
+        var theater = theaterJS()
+
+        theater.on('type:start, erase:start', function () {
+                    // add a class to actor's dom element when he starts typing/erasing
+                    var actor = theater.getCurrentActor()
+                    actor.$element.classList.add('is-typing')
+                })
+                .on('type:end, erase:end', function () {
+                    // and then remove it when he's done
+                    var actor = theater.getCurrentActor()
+                    actor.$element.classList.remove('is-typing')
+                })
+        theater.addActor('p1',{ accuracy: 1, speed: 0 })
+                .addActor('p2',{ accuracy: 1, speed: 0.01 })
+                .addActor('p3',{ accuracy: 1, speed: 0.01 })
+
+
+        theater.addScene('p1:初始化时光机....', 40)
+                .addScene('p2:检查立场发生装置', 10, '.', 10, '.', 10, '.',10, '.',10, '.',10, '.',10, '【完成】')
+                .addScene('p3:照明系统检测完成', 10, '.', 10, '.', 10, '.',10, '.',10, '.',10, '.',10, '【正常】')
+                .addScene(function(e){
+                    var time = 0;
+                    var timer = setInterval(function(){
+                        switch (time){
+                            case 0:
+                                $('#p4').html('正在计算地心引力...)');
+                                break;
+                            case 1:
+                                $('#p5').html('"use strict";"object"!=typeof window.CP&&(window.CP={})');
+                                break;
+                            case 2:
+                                $('#p6').html('window.CP.PenTimer={programNoLongerBeingMonitored:!1');
+                                break;
+                            case 3:
+                                $('#p7').html('if(this.programKilledSoStopMonitoring)return!0');
+                                break;
+                            case 4:
+                                $('#p8').html('if(0===this.timeOfFirstCallToShouldStopLoop)return');
+                                break;
+                            case 5:
+                                $('#p9').html('var i=t-this.timeOfFirstCallToShouldStopLoop');
+                                break;
+                            case 6:
+                                $('#p10').html('self.requestStatus = this.RequestStatuses[3]');
+                                break;
+                            case 7:
+                                $('#p11').html('if(i<this.START_MONITORING_AFTER)return!1');
+                                break;
+                            case 8:
+                                $('#p12').html('解析时空地址//133.101.2.18:81');
+                                break;
+                            case 9:
+                                $('#p13').html('ns":[{"domain":"benaughty.com","con');
+                                break;
+                            case 10:
+                                $('#p14').html('args:"+JSON.stringify(args).split(",").join(",")');
+                                break;
+                            case 11:
+                                $('#p15').html('未检测到时空逆流');
+                                clearInterval(timer);
+                                var theater2 = theaterJS()
+                                theater2.on('type:start, erase:start', function () {
+                                            // add a class to actor's dom element when he starts typing/erasing
+                                            var actor = theater2.getCurrentActor()
+                                            actor.$element.classList.add('is-typing')
+                                        })
+                                        .on('type:end, erase:end', function () {
+                                            // and then remove it when he's done
+                                            var actor = theater2.getCurrentActor()
+                                            actor.$element.classList.remove('is-typing')
+                                        })
+                                theater2.addActor('p16')
+                                        .addActor('p40')
+                                theater2.addScene('p16:正在计算大气密度&海拔高度', 10, '.', 10, '.', 10, '.',10, '.',10, '.',10, '.',10, '【完成】')
+                                        .addScene('p40:检测升空环v境', 10, '.', 10, '.', 10, '.',10, '.',10, '.',10, '.',10, '【良好】')
+                                        .addScene(function(e){
+                                            var time2 = 0;
+                                            var timer2 = setInterval(function(){
+                                                switch (time2){
+                                                    case 0:
+                                                        $('#p17').html('-5.11.0.0on6.0 (machine 6.1.1.0.A)');
+                                                        break;
+                                                    case 1:
+                                                        $('#p18').html('-pro(mmx6674)by First Electrc');
+                                                        break;
+                                                    case 2:
+                                                        $('#p19').html('function DataBrain(){prototype.handle()}');
+                                                        break;
+                                                    case 4:
+                                                        $('#p20').html('catch(n){return this._sendErrorMessageToEditor(),this');
+                                                        break;
+                                                    case 5:
+                                                        $('#p21').html('function(){return document.location.href.match(/boomerang/)}');
+                                                        break;
+                                                    case 6:
+                                                        $('#p22').html('if(o.stack){var i=o.stack.match(/boomerang\S+:(\d+):\d+/);');
+                                                        break;
+                                                    case 7:
+                                                        $('#p23').html('function(o,t){if(!this._loopTimers[o])return this._loopTimers[o]=t)');
+                                                        break;
+                                                    case 8:
+                                                        $('#p24').html('_getTime:function(){return+new Date}},window.CP.shouldStopExecution');
+                                                        break;
+                                                    case 9:
+                                                        $('#p25').html('function(o){return window.CP.PenTimer.shouldStopLoop(o)}');
+                                                        break;
+                                                    case 10:
+                                                        $('#p26').html('Array.prototype.splice.apply(arguments, [4])');
+                                                        break;
+                                                    case 11:
+                                                        $('#p27').html('window.CP.exitedLoop=function(o){window.CP.PenTimer.exitedLoop(o)};');
+                                                        break;
+                                                    case 12:
+                                                        $('#p28').html('Array.prototype.splice.apply(arguments, [6])');
+                                                        break;
+                                                    case 13:
+                                                        $('#p29').html('_sendErrorMessageToEditor:function(){try{if(this._shouldPostMessage())');
+                                                        break;
+                                                    case 14:
+                                                        $('#p30').html('try{this._checkOnInfiniteLoop(o,t)}catch(n){return this._sendErrorMessageToEditor()');
+                                                        break;
+                                                    case 15:
+                                                        $('#p31').html('function(e,t){e.exports={en:["qwertyuiop","asdfghjkl","zxcvbnm"],fr:["azertyuiop","qsdfghjklm","wxcvbn"]');
+                                                        break;
+                                                    case 16:
+                                                        $('#p32').html('var t=this._getTime();if(0===this.timeOfFirstCallToShouldStopLoop)');
+                                                        break;
+                                                    case 17:
+                                                        $('#p33').html('MAX_TIME_IN_LOOP_WO_EXIT:2200,exitedLoop:function(o){this._loopExits[o]=!0},shouldStopLoop');
+                                                        break;
+                                                    case 18:
+                                                        $('#p34').html('timeOfFirstCallToShouldStopLoop:0,_loopExits:{},_loopTimers:{},START_MONITORING_AFTER:2e3');
+                                                        break;
+                                                    case 19:
+                                                        $('#p35').html('function r(e){return{}.toString.call(e)}Object.defineProperty(t,"__esModule",');
+                                                        break;
+                                                    case 20:
+                                                        $('#p36').html('ase","br","col","embed","hr","img","input","keygen","link","menuitem","meta","para');
+                                                        break;
+                                                    case 21:
+                                                        $('#p37').html('解析时空地址//133.101.2.18:81');
+                                                        clearInterval(timer2);
+                                                        var theater3 = theaterJS()
+                                                        theater3.on('type:start, erase:start', function () {
+                                                                    // add a class to actor's dom element when he starts typing/erasing
+                                                                    var actor = theater3.getCurrentActor()
+                                                                    actor.$element.classList.add('is-typing')
+                                                                })
+                                                                .on('type:end, erase:end', function () {
+                                                                    // and then remove it when he's done
+                                                                    var actor = theater3.getCurrentActor()
+                                                                    actor.$element.classList.remove('is-typing')
+                                                                })
+                                                        theater3.addActor('p38')
+                                                                .addActor('p39')
+                                                        theater3.addScene('p38:准备就绪，欢迎乘坐本次航班，请系好安全带',50)
+                                                                .addScene('p39:起航',50, '.', 10, '.', 10, '.',10, '.',10, '.',10, '.',10)
+                                                                .addScene(function(){
+                                                                    $('.content-wrapper').scrollTop($('.content-inner')[0].clientHeight);
+                                                                    setTimeout(function(){
+                                                                        window.location.href = 'page2.html'
+                                                                    },1000)
+                                                                })
+                                                        break;
+                                                }
+                                                $('.content-wrapper').scrollTop($('.content-inner')[0].clientHeight+200);
+                                                time2++
+                                            },30)
+                                        })
+                                break;
+                        }
+                        time++
+                    },20)
+                })
+
+//                .addScene('p6:-5.11.0.0on6.0 (machine 6.1.1.0.A)',50)
+//                .addScene('p7:-pro(mmx6674)by First Electrc',50)
+//                .addScene('p8:/*![CDATA[*/ var _isGotoJump = false',50)
+//                .addScene('p9:window.open=function(url){ if(!_isGotoJump)DataBrain.prototype.handl',50)
+        /*theater.addScene('vader:Luke...', 400)
+                .addScene('luke:What?', 400)
+                .addScene('vader:I am', 10, '.', 10, '.', 10, '.')
+                .addScene('Your father!')
+                .addScene(theater.replay)*/
+    </script>
+</body>
+</html>

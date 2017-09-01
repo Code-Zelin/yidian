@@ -1,0 +1,376 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+}
+html > div.hide,
+body > div.hide {
+  display: none;
+}
+html .page-screensaver,
+body .page-screensaver {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: url("../images/page/bg.jpg") no-repeat center top;
+  -webkit-background-size: cover;
+  background-size: cover;
+  top: 0;
+  opacity: 1;
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  -ms-transition: all 1s;
+  -o-transition: all 1s;
+  transition: all 1s;
+  /*.qiuqiu{
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      background: radial-gradient(rgba(255,0,255,1) 0%,rgba(255,255,255,0) 70%, rgba(255,255,255,1));
+      transition: all 5s;
+      position: absolute;
+      bottom: -100%;
+      opacity: 0;
+      display: none;
+      animation: fang 1.4s linear forwards;
+    }*/
+}
+html .page-screensaver.top,
+body .page-screensaver.top {
+  opacity: 0;
+  top: -100%;
+}
+html .page-screensaver .page-time,
+body .page-screensaver .page-time {
+  position: absolute;
+  top: 2rem;
+  left: 1rem;
+  color: #fff;
+}
+html .page-screensaver .page-time .time-wrapper,
+body .page-screensaver .page-time .time-wrapper {
+  line-height: 1;
+}
+html .page-screensaver .page-time .time-wrapper .time-hour,
+body .page-screensaver .page-time .time-wrapper .time-hour {
+  font-size: 2rem;
+}
+html .page-screensaver .page-time .time-wrapper .time-min,
+body .page-screensaver .page-time .time-wrapper .time-min {
+  font-size: .8rem;
+}
+html .page-screensaver .page-time .date-wrapper,
+body .page-screensaver .page-time .date-wrapper {
+  font-size: .6rem;
+}
+html .page-screensaver .page-time .date-wrapper .date-week,
+body .page-screensaver .page-time .date-wrapper .date-week {
+  margin-left: .6rem;
+}
+html .page-screensaver .page-weixin,
+body .page-screensaver .page-weixin {
+  position: absolute;
+  width: 13rem;
+  padding-top: 2rem;
+}
+html .page-screensaver .page-weixin .weixin,
+body .page-screensaver .page-weixin .weixin {
+  width: 13rem;
+  height: 2rem;
+  background: url("../images/page/weixin.png") no-repeat center top;
+  -webkit-background-size: contain;
+  background-size: contain;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  opacity: 0;
+  -webkit-animation: showWeixin .5s forwards;
+  -o-animation: showWeixin .5s forwards;
+  animation: showWeixin .5s forwards;
+}
+html .page-screensaver .page-weixin p,
+body .page-screensaver .page-weixin p {
+  font-size: .4rem;
+  text-align: center;
+  text-decoration: underline;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: .2rem;
+  opacity: 0;
+  -webkit-animation: showFont .1s .5s forwards;
+  -o-animation: showFont .1s .5s forwards;
+  animation: showFont .1s .5s forwards;
+}
+html .page-screensaver .page-upLook,
+body .page-screensaver .page-upLook {
+  position: absolute;
+  height: 2.6rem;
+  bottom: 2rem;
+  padding-top: 1.6rem;
+}
+html .page-screensaver .page-upLook .up-icon,
+body .page-screensaver .page-upLook .up-icon {
+  position: absolute;
+  width: 1.9rem;
+  height: 1.6rem;
+  top: 0;
+  opacity: 1;
+  background: url("../images/page/up.png") no-repeat center;
+  -webkit-background-size: contain;
+  background-size: contain;
+  -webkit-animation: upAndDown 2s infinite;
+  -o-animation: upAndDown 2s infinite;
+  animation: upAndDown 2s infinite;
+}
+html .page-screensaver .page-upLook p,
+body .page-screensaver .page-upLook p {
+  font-size: .6rem;
+  line-height: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+}
+html .page-index,
+body .page-index {
+  width: 100%;
+  height: 100%;
+  background: url("../images/page/ios.jpg") no-repeat center bottom;
+  -webkit-background-size: cover;
+  background-size: cover;
+  position: relative;
+}
+html .page-index .icon-list,
+body .page-index .icon-list {
+  width: 100%;
+  padding-left: .6rem;
+  padding-top: .6rem;
+}
+html .page-index .icon-list li,
+body .page-index .icon-list li {
+  float: left;
+  width: 3rem;
+  margin-right: .6rem;
+  height: 3rem;
+  background: no-repeat center;
+  background-size: 2rem auto;
+  margin-bottom: .6rem;
+}
+html .page-index .icon-list li.cur,
+body .page-index .icon-list li.cur {
+  position: relative;
+}
+html .page-index .icon-list li.cur:after,
+body .page-index .icon-list li.cur:after {
+  content: '';
+  position: absolute;
+  width: .6rem;
+  height: .6rem;
+  background: url("../images/page/red.png") no-repeat center;
+  -webkit-background-size: contain;
+  background-size: contain;
+  top: .2rem;
+  right: .2rem;
+  -webkit-animation: flash 1s infinite linear;
+  -o-animation: flash 1s infinite linear;
+  animation: flash 1s infinite linear;
+}
+html .page-index .icon-down,
+body .page-index .icon-down {
+  position: absolute;
+  bottom: 0%;
+  left: 0;
+}
+html .page-index .icon-down li,
+body .page-index .icon-down li {
+  margin-bottom: 0;
+}
+html .page-index .icon-down li:nth-child(1),
+body .page-index .icon-down li:nth-child(1) {
+  background-image: url(../images/page/icon/01.png);
+}
+html .page-index .icon-down li:nth-child(2),
+body .page-index .icon-down li:nth-child(2) {
+  background-image: url(../images/page/icon/02.png);
+}
+html .page-index .icon-down li:nth-child(3),
+body .page-index .icon-down li:nth-child(3) {
+  background-image: url(../images/page/icon/03.png);
+}
+html .page-index .icon-down li:nth-child(4),
+body .page-index .icon-down li:nth-child(4) {
+  background-image: url(../images/page/icon/04.png);
+}
+html .page-chat,
+body .page-chat {
+  width: 100%;
+  height: 100%;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background: #aaa;
+  position: relative;
+}
+html .page-chat .chat-top,
+body .page-chat .chat-top {
+  width: 15rem;
+  height: 1.9rem;
+  background: url("../images/page/weixinTop.jpg") no-repeat center;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+html .page-chat .chat-down,
+body .page-chat .chat-down {
+  width: 15rem;
+  height: 2.2rem;
+  background: url("../images/page/weixinBottom.jpg") no-repeat center bottom;
+  -webkit-background-size: contain;
+  background-size: contain;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+html .page-chat .chat-list li,
+body .page-chat .chat-list li {
+  width: 100%;
+  height: 2.4rem;
+  padding: .2rem .5rem;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+}
+html .page-chat .chat-list li:first-child .chat-img,
+body .page-chat .chat-list li:first-child .chat-img {
+  position: relative;
+}
+html .page-chat .chat-list li:first-child .chat-img:after,
+body .page-chat .chat-list li:first-child .chat-img:after {
+  content: '';
+  position: absolute;
+  width: .6rem;
+  height: .6rem;
+  background: url("../images/page/red.png") no-repeat center;
+  -webkit-background-size: contain;
+  background-size: contain;
+  top: -0.2rem;
+  right: -0.2rem;
+  -webkit-animation: flash 1s infinite linear;
+  -o-animation: flash 1s infinite linear;
+  animation: flash 1s infinite linear;
+}
+html .page-chat .chat-list li .chat-img,
+body .page-chat .chat-list li .chat-img {
+  width: 2rem;
+  height: 2rem;
+  background: #ccc none center;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+html .page-chat .chat-list li .chat-content,
+body .page-chat .chat-list li .chat-content {
+  width: 11.6rem;
+  height: 2rem;
+  margin-left: .4rem;
+  line-height: 1;
+  padding: .3rem 0;
+}
+html .page-chat .chat-list li .chat-content h4,
+body .page-chat .chat-list li .chat-content h4 {
+  font-size: .6rem;
+  font-weight: bold;
+  color: #3c3c3e;
+}
+html .page-chat .chat-list li .chat-content h4 span,
+body .page-chat .chat-list li .chat-content h4 span {
+  font-weight: normal;
+  font-size: .48rem;
+  color: #bebec0;
+}
+html .page-chat .chat-list li .chat-content p,
+body .page-chat .chat-list li .chat-content p {
+  font-size: .48rem;
+  margin-top: .32rem;
+  color: #a1a1a1;
+}
+@keyframes fang {
+  0% {
+    bottom: -100%;
+    opacity: 0;
+    width: 1rem;
+    height: 1rem;
+    background: radial-gradient(#ff00ff 0%, rgba(255, 255, 255, 0) 70%, #ffffff);
+    transform: translateX(-50%) scale(0);
+  }
+  60% {
+    bottom: 1rem;
+    opacity: 1;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: radial-gradient(#ff00ff 0%, rgba(255, 255, 255, 0) 70%, #ffffff);
+    transform: translateX(-50%) scale(1);
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+    bottom: 50%;
+    opacity: 1;
+    transform: translate(-50%, 50%) scale(1);
+    background: #f0f;
+    border-radius: 0;
+  }
+}
+@keyframes upAndDown {
+  0% {
+    top: 0;
+    opacity: 1;
+  }
+  100% {
+    top: -0.6rem;
+    opacity: 0;
+  }
+}
+@keyframes showWeixin {
+  from {
+    opacity: 0;
+    -webkit-transform: translateX(-50%) scale(0);
+    -moz-transform: translateX(-50%) scale(0);
+    -ms-transform: translateX(-50%) scale(0);
+    -o-transform: translateX(-50%) scale(0);
+    transform: translateX(-50%) scale(0);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateX(-50%) scale(1);
+    -moz-transform: translateX(-50%) scale(1);
+    -ms-transform: translateX(-50%) scale(1);
+    -o-transform: translateX(-50%) scale(1);
+    transform: translateX(-50%) scale(1);
+  }
+}
+@keyframes showFont {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes upToHide {
+  from {
+    top: 0;
+    opacity: 1;
+  }
+  to {
+    top: -100%;
+    opacity: 0;
+  }
+}
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

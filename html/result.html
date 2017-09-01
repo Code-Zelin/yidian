@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>结果</title>
+    <link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+    <!--<link rel="stylesheet" href="../css/animate.min.css">-->
+    <link rel="stylesheet" href="../css/result.css">
+</head>
+<body>
+    <ul class="result-list">
+        <li class="li-one">
+            <div class="font-top center-x"></div>
+            <div class="fish center-x li-content">
+                <div class="font-wrapper">
+                    <div class="font"></div>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </li>
+        <li class="li-two">
+            <div class="font-top center-x"></div>
+            <div class="peoples center-x li-content"></div>
+        </li>
+        <li class="li-three">
+            <div class="font-top center-x"></div>
+            <div class="fish center-x li-content"></div>
+        </li>
+        <div class="btn center-x"></div>
+        <audio src="../music/xyj.wav" autoplay id="audio"></audio>
+    </ul>
+
+    <script src="../js/zepto.min.js"></script>
+    <script src="../js/reset.js"></script>
+    <script>
+        $(function(){
+
+            var musicList = ['ai.wav','xyj.wav','le.wav','xiu.wav'];
+            var audio = $('#audio')[0];
+
+
+            var num = Math.random()*3;
+            num = parseInt(num);
+            $('.result-list li').eq(num).addClass('cur');
+
+            if(num == 0){
+                var x = 0;
+                setTimeout(function(){
+                    setInterval(function(){
+                        x++
+                        $('.li-one .fish').css({
+                            'transform':'translateX(-50%) rotateY('+ (x%2)*360 +'deg)'
+                        })
+                    },2000)
+                },2000)
+            }
+
+            audio.src = jointSrc(musicList[num]);
+            audio.play();
+
+            $('.btn').click(function(){
+                $('.btn').addClass('l-r');
+                audio.src = jointSrc(musicList[3]);
+                audio.play();
+            })
+
+            function jointSrc(music){
+                var src = '../music/'+music;
+                return src;
+            }
+        })
+    </script>
+</body>
+</html>

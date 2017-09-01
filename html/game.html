@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0;">
+    <title>翻拍</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <style>
+        body{
+            width: 15rem;
+            padding:.6rem;
+        }
+        .cart-list{
+            /*border: 1px solid #ccc;*/
+            padding: .6rem;
+            width: 13.8rem;
+        }
+        .cart-list li{
+            float: left;
+            margin-right: .6rem;
+            width: 2.7rem;
+            height: 2.7rem;
+            margin-bottom: .6rem;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+        .cart-list li:nth-child(4n){
+            margin-right: 0;
+        }
+      /*  .cart-list li:after{
+            content: '';
+            display: block;
+            background: #f40;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translateZ(20px);
+        }
+        .cart-list li:before{
+            content: '';
+            display: block;
+            background: #4fa;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translateZ(-20px);
+        }*/
+        .quickFlip{
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <!--<ul class="cart-list clearfix">
+        <li id="1" cont="1"></li>
+        <li id="2" cont="1"></li>
+        <li id="3" cont="1"></li>
+        <li id="4" cont="1"></li>
+        <li id="5" cont="1"></li>
+        <li id="6" cont="1"></li>
+        <li id="7" cont="1"></li>
+        <li id="8" cont="1"></li>
+        <li id="9" cont="1"></li>
+        <li id="10" cont="1"></li>
+        <li id="11" cont="1"></li>
+        <li id="12" cont="1"></li>
+        <li id="13" cont="1"></li>
+        <li id="14" cont="1"></li>
+        <li id="15" cont="1"></li>
+        <li id="16" cont="1"></li>
+    </ul>-->
+    <div class="quickFlip">
+        <div>
+            <a href="#" class="quickFlipCta"><img src="../images/index/1.jpg" width="600" height="440" border="0" /></a>
+        </div>
+
+        <div>
+            <a href="#" class="quickFlipCta"><img src="../images/index/pic2.png" width="600" height="440" border="0" /></a>
+        </div>
+    </div>
+    <div class="quickFlip">
+        <div>
+            <a href="#" class="quickFlipCta"><img src="../images/index/1.jpg" width="600" height="440" border="0" /></a>
+        </div>
+
+        <div>
+            <a href="#" class="quickFlipCta"><img src="../images/index/pic2.png" width="600" height="440" border="0" /></a>
+        </div>
+    </div>
+    <script src="../js/zepto.min.js"></script>
+    <script src="../js/reset.js"></script>
+    <script src="../js/jquery.quickflip.js"></script>
+    <script>
+        $(function(){
+            let cartNum = 16;   //卡牌数量
+            let contList = {};
+            /*for(var c=0; c<cartNum; c++){
+                let cont = Math.ceil(Math.random() * 8);
+                if(contList[cont]){
+                    contList[cont] = 2;
+                }else{
+                    contList[cont] = 1;
+                }
+                $('#'+c).attr('cont',cont);
+            }*/
+
+            $('.quickFlip').quickFlip();
+        })
+    </script>
+</body>
+</html>

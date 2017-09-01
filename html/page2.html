@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>穿越</title>
+	<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+	<link rel="stylesheet" href="../css/page2.css">
+</head>
+<body>
+  	<canvas id="html5_3d_animation">Internet Explorer 8 Not Supported</canvas>
+	<div class="page-second">
+        <div class="page-bg center-xy"></div>
+		<ul class="page-img center-xy">
+			<li class="cur">
+                <div class="font-wrapper"></div>
+            </li>
+			<li>
+                <div class="font-wrapper"></div>
+            </li>
+			<li>
+                <div class="font-wrapper center-x"></div>
+                <div class="content-wrapper">
+                    <div class="phone-wrapper" onclick="showMsg()"></div>
+                    <div class="hint-wrapper">
+                        <div class="hint-hand"></div>
+                        <div class="hint-img"></div>
+                    </div>
+                </div>
+            </li>
+		</ul>
+	</div>
+    <div class="msg-page show">
+        <div class="msg-top"></div>
+        <div class="msg-inner">
+            <div class="msg-wrapper msg-dream">
+                <div class="clearfix">
+                    <p class="msg-box fl">
+                        你的梦想是什么？
+                    </p>
+                </div>
+            </div>
+            <div class="msg-wrapper msg-time" style="display: none;">
+                <div class="clearfix">
+                    <p class="msg-box fl">
+                        为了这个梦想，你愿意付出多少时间？
+                    </p>
+                </div>
+                <div class="time-wrapper">
+                    <div class="time-inner">
+                        <div class="input-wrapper">
+                            <input type="range" value="0" min="0" max="5">
+                            <ul class="dream-time">
+                                <li class="cur">1年</li>
+                                <li>2年</li>
+                                <li>3年</li>
+                                <li>5年</li>
+                                <li>7年</li>
+                                <li>10年</li>
+                            </ul>
+                        </div>
+                        <div class="time-btn" onclick="handleSubmit()">确定</div>
+                    </div>
+                </div>
+            </div>
+            <div class="msg-wrapper msg-game" style="display: none;">
+                <div class="clearfix">
+                    <p class="msg-box fl">
+                        甚至，你愿意为它投入更多的精力...
+                    </p>
+                </div>
+                <div class="clearfix">
+                    <p class="msg-box fl">
+                        试试这个游戏吧
+                    </p>
+                </div>
+                <div class="game-wrapper">
+                    <div class="game-people">
+                        <span class="game-begin"></span>
+                        <span class="game-shade"></span>
+                    </div>
+                    <p>为梦想加油</p>
+                    <p>一定时间内点击屏幕</p>
+                    <p>点击次数越多能量值越大！</p>
+                </div>
+            </div>
+        </div>
+        <div class="game-result">
+            <div class="game-btn center-xy">
+                <div class="game-clock center-x"></div>
+                <div class="game-yun center-x"></div>
+                <div class="game-go" onclick="resultPage()"></div>
+            </div>
+        </div>
+        <!--<div class="time-wrapper">-->
+            <!--<div class="time-inner">-->
+                <!--<h3 class="time-title">-->
+                    <!--为了这个梦想，这一次</br>-->
+                    <!--你愿意付出多少时间？-->
+                <!--</h3>-->
+                <!--<div class="input-wrapper">-->
+                    <!--<input type="range" value="0" min="0" max="5">-->
+                    <!--<ul class="dream-time">-->
+                        <!--<li class="cur">1年</li>-->
+                        <!--<li>2年</li>-->
+                        <!--<li>3年</li>-->
+                        <!--<li>5年</li>-->
+                        <!--<li>7年</li>-->
+                        <!--<li>10年</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="time-btn" onclick="handleSubmit()">提交</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="msg-down clearfix">
+            <span class="fl msg-icon"></span>
+            <input type="text" placeholder="请填写您的梦想" class="fl">
+            <span class="fr msg-send" onclick="handleSend()"></span>
+        </div>
+    </div>
+	<script src="../js/zepto.min.js" type="text/javascript"></script>
+	<script src="../js/reset.js"></script>
+	<script src="../js/html5_3d_animation.js" type="text/javascript"></script>
+    <script src="../js/rangeSlider.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			let window_width = document.documentElement.clientWidth;
+			let window_height = document.documentElement.clientHeight;
+
+            let rem = window_width/15;
+            $('.msg-inner').css('height',(window_height - 3.8*rem)+'px');
+	        $("#html5_3d_animation").html5_3d_animation({
+	            window_width: window_width,
+	            window_height: window_height,
+	            window_background: '#00113F',
+	            star_count: '2000',
+	            star_color: '#fff',
+	            star_depth: '100'
+	        });
+			$('.again-btn').click(function(){
+				location.reload();
+			})
+            //开始人物的轮播
+            setTimeout(function(){
+                $('.page-img').css('opacity',1);
+                var imgIndex = 0;
+                var timer = setInterval(function(){
+                    imgIndex++
+                    $('.page-img li').eq(imgIndex).addClass('cur').siblings().removeClass('cur');
+                    if(imgIndex == 2){
+                        clearInterval(timer);
+                    }
+                },3000)
+            },5000)
+
+            //重定义range组件
+            var change = function($input) {
+                /*内容可自行定义*/
+                console.log("123");
+            }
+
+            $('input[type="range"]').RangeSlider({ min: 0,   max: 5,  step: 1,  callback: change});
+
+            //游戏部分
+            var gameData = {
+                status:false,
+                endTime:10,
+                now:0,
+                num:0,
+                timer:null
+            };
+            $('.game-begin').on('click',function(){
+                $(this).hide();
+                gameData.status = true;
+                gameData.timer = setInterval(function(){
+                    if(gameData.now == 10){
+                        gameData.status = false;
+                        console.log('end');
+                        clearInterval(gameData.timer);
+                        showResult();
+                    }
+                    gameData.now ++
+                },1000)
+            })
+            $(document).on('click',function(){
+                if(gameData.status){
+                    gameData.num++
+                    $('.game-shade').css('height',(100-gameData.num)+'%');
+                    if(gameData.num == 100){
+                        gameData.status = false;
+                        showResult();
+                    }
+                }
+            })
+
+
+	    });
+        //监听发送事件
+        function handleSend(){
+            if($('.msg-dream div').length < 2) {
+                var val = $('.msg-down input').val();
+                var div = document.createElement('div'), p = document.createElement('p');
+                div.className = 'clearfix';
+                p.className = 'msg-box box-right fr dream';
+                p.innerText = val;
+                div.appendChild(p);
+                $('.msg-dream').append(div);
+                $('.msg-down input').val('').attr('readonly','readonly').attr('placeholder','你的梦想已上传');
+                setTimeout(function(){
+                    $('.msg-time').show();
+                },500)
+            }
+        }
+        //监听提交事件
+        function handleSubmit(){
+            //TODO 提交
+            var submitData = {
+                dream: $('.dream').text()
+            }
+            var timeNum = $('.time-wrapper input[type=range]').val();
+            switch (timeNum){
+                case 0:
+                    submitData.time = '1年';
+                    break;
+                case 1:
+                    submitData.time = '2年';
+                    break;
+                case 2:
+                    submitData.time = '3年';
+                    break;
+                case 3:
+                    submitData.time = '5年';
+                    break;
+                case 4:
+                    submitData.time = '7年';
+                    break;
+                case 5:
+                    submitData.time = '10年';
+                    break;
+            }
+            $('.msg-game').show();
+            $(".msg-inner").scrollTop($('.msg-inner').height());
+            console.log(submitData)
+        }
+        //显示信息页面
+        function showMsg(){
+            $('.msg-page').addClass('show');
+        }
+        //显示结果页
+        function showResult(){
+            $('.game-result').show();
+        }
+
+        //跳转到结果页
+        function resultPage(){
+            window.location.href = 'result.html';
+        }
+	</script>
+</body>
+</html>

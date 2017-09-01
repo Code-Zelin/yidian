@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>您有一条未读短信</title>
+    <link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+    <link rel="stylesheet" href="../css/page.css">
+</head>
+<body>
+    <audio src="../music/6674.wav" id="audio">
+        您的浏览器不支持 audio 标签。
+    </audio>
+    <div class="page-screensaver hide">
+        <!--<div class="qiuqiu center-x"></div>-->
+        <div class="page-time">
+            <div class="time-wrapper clearfix">
+                <span class="fl time-hour">19</span>
+                <span class="fl time-min">:00</span>
+            </div>
+            <p class="date-wrapper">
+                <span class="date-day">8月24日</span>
+                <span class="date-week">周四</span>
+            </p>
+        </div>
+
+        <div class="page-weixin center-xy">
+            <div class="weixin"></div>
+            <p>点击查看</p>
+        </div>
+
+        <div class="page-upLook center-x">
+            <span class="up-icon center-x"></span>
+            <p>上划解锁</p>
+        </div>
+    </div>
+    <div class="page-index hide">
+        <ul class="icon-list icon-top clearfix">
+            <li id="1"></li>
+            <li id="2"></li>
+            <li id="3"></li>
+            <li id="4"></li>
+            <li id="5"></li>
+            <li id="6"></li>
+            <li id="7"></li>
+            <li id="8"></li>
+            <li id="9"></li>
+            <li id="10"></li>
+            <li id="11" class="cur"></li>
+            <li id="12"></li>
+            <li id="13"></li>
+            <li id="14"></li>
+            <li id="15"></li>
+            <li id="16"></li>
+            <li id="17"></li>
+            <li id="18"></li>
+        </ul>
+        <ul class="icon-down icon-list">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="page-chat hide">
+        <div class="chat-top"></div>
+        <ul class="chat-list">
+        </ul>
+        <div class="chat-down"></div>
+    </div>
+    <script src="../js/reset.js"></script>
+    <script src="../js/zepto.min.js"></script>
+    <script src="http://ossweb-img.qq.com/images/js/TGMobileShare/TGMobileShare.min.js"></script>
+    <script>
+        $(function(){
+            //初始化页面
+            var date = new Date();
+            $('.time-hour').text(date.getHours());
+            var min = date.getMinutes()>=10?date.getMinutes():'0'+date.getMinutes();
+            $('.time-min').text(':'+min);
+            $('.date-day').text(date.getMonth()+1+'月'+date.getDate()+'日');
+            $('.date-week').text('周'+"日一二三四五六".charAt(date.getDay()))
+
+            setTimeout(function(){
+                $('.page-screensaver').removeClass('hide');
+                $('#audio')[0].play();
+            },500)
+
+            /*$(document).swipeUp(function(e){
+                if(e && !$('.page-screensaver').hasClass('hide')){
+                    $('.page-screensaver').addClass('top');
+                    $('.page-index').removeClass('hide');
+                    $.each($('.icon-top li'),function(index,ele){
+                        var id = ele.id;
+                        ele.style.backgroundImage = "url(../images/page/icon/"+id+".png)";
+                    })
+                }
+            });*/
+
+            $(document).on('touchstart','.page-index .cur',function(){
+                $('.page-index').hide();
+                showChat();
+            })
+            $(document).on('touchstart','.page-chat .cur',function(){
+                window.location.href = 'page2_new.html';
+            })
+
+            $(document).on('touchstart','.page-screensaver',function(){
+                $('.page-screensaver').addClass('top');
+                $('.page-index').removeClass('hide');
+                $.each($('.icon-top li'),function(index,ele){
+                    var id = ele.id;
+                    ele.style.backgroundImage = "url(../images/page/icon/"+id+".png)";
+                })
+            })
+            $(document).on('touchmove',function(e){
+                console.log(e);
+            })
+            var chatData = [
+                {
+                    title:'一群有梦想的人',
+                    content: '<span style="color:red;">[有人@你]</span>',
+                    time:'12:11',
+                    img : '../images/page/head/1.png',
+                    class:'cur'
+                },
+                {
+                    title:'客户爸爸',
+                    content: '这稿我们不是很喜欢，我们想要..',
+                    time:'8月20日',
+                    img : '../images/page/head/2.png'
+                },
+                {
+                    title:'老板',
+                    content: '这个季度的项目指标完成得怎么样啦？',
+                    time:'8月20日',
+                    img : '../images/page/head/3.png'
+                },
+                {
+                    title:'经理',
+                    content: '文案可能还要再优化一下',
+                    time:'8月19日',
+                    img : '../images/page/head/4.png'
+                },
+                {
+                    title:'文件传输助手',
+                    content: '[图片]',
+                    time:'17:39',
+                    img : '../images/page/head/5.png'
+                },
+                {
+                    title:'母后大人',
+                    content: '今天晚上又不回来吃饭吗',
+                    time:'17：37',
+                    img : '../images/page/head/6.png'
+                },
+                {
+                    title:'Jame',
+                    content: '{动画表情}',
+                    time:'17:32',
+                    img : '../images/page/head/7.png'
+                },
+                {
+                    title:'Tom',
+                    content: '你怎么还在加班啊！佩服佩服',
+                    time:'8月19日',
+                    img : '../images/page/head/8.jpg'
+                },
+                {
+                    title:'AliBaby',
+                    content: '你最近关注新能源汽车了么？有个一电挺棒的诶，推荐你看看',
+                    time:'8月19日',
+                    img : '../images/page/head/8.jpg'
+                }
+            ];
+            function showChat(){
+                $('.page-chat').removeClass('hide');
+                $.each(chatData,function(index, element){
+                    var dom = '<li class="clearfix '+element.class+'">'+
+                                '<div class="chat-img fl" style="background-image: url('+element.img+')"></div>'+
+                                    '<div class="chat-content fl">'+
+                                    '<h4 class="clearfix">'+element.title+'<span class="fr">'+ element.time+'</span></h4>'+
+                                    '<p>'+element.content+'</p>'+
+                                '</div>'+
+                            '</li>';
+                    $('.chat-list').append(dom);
+                })
+            }
+        })
+
+        TGMobileShare({
+            shareTitle:'demo3分享标题', //不设置或设置为空时，页面有title，则调取title
+            shareDesc:'demo3分享详情', //不设置或设置为空时，页面有Description，则调取Description
+            shareImgUrl:'http://game.gtimg.cn/images/tgideas/act/a20151127tgmsdemo/share.jpg', //分享图片尺寸200*200，且填写绝对路径
+            shareLink:'http://tgideas.qq.com/act/a20151127tgmsdemo/demo3.html', //分享链接要跟当前页面同域名(手Q分享有这个要求) ,不设置或设置为空时，默认调取当前URL
+            actName:'a20151127tgmsdemo' //点击流命名，用于统计分享量，专题一般采用目录名称如a20151029demo
+        });
+    </script>
+</body>
+</html>
