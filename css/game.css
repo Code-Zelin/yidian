@@ -1,0 +1,216 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+body {
+  padding: .6rem;
+  background: url("../images/game/bg.jpg") no-repeat center;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body .cart-list {
+  /*border: 1px solid #ccc;*/
+  padding: .6rem;
+  width: 13.8rem;
+  position: absolute;
+}
+body .cart-list li {
+  float: left;
+  margin-right: .6rem;
+  width: 2.7rem;
+  height: 4.3rem;
+  margin-bottom: .6rem;
+  border: 1px solid #ccc;
+  position: relative;
+  border-radius: .2rem;
+  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+body .cart-list li:nth-child(4n) {
+  margin-right: 0;
+}
+body .cart-list li.outer > div {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+body .cart-list li.outer > div.inner1 {
+  background: no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+  transform: rotateY(0);
+}
+body .cart-list li.outer > div.inner2 {
+  background: url("../images/game/card.png") no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+  transform: rotateY(-180deg);
+}
+body .game-show {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+}
+body .game-show .game-inner {
+  position: absolute;
+  width: 11.5rem;
+  height: 22.2rem;
+  background: url("../images/game/notice.png") no-repeat center;
+  -webkit-background-size: contain;
+  background-size: contain;
+  padding: .6rem;
+  -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  z-index: 9;
+  top: 0;
+  animation: gameAn 1s forwards;
+}
+body .game-show .game-inner > div {
+  position: absolute;
+}
+body .game-show .game-inner .game-font {
+  width: 8.5rem;
+  height: 2rem;
+  background: url("../images/game/font.png") no-repeat center;
+  -webkit-background-size: contain;
+  background-size: contain;
+  bottom: 14.6rem;
+}
+body .game-show .game-inner .game-img {
+  width: 9.1rem;
+  height: 8.6rem;
+  bottom: 5rem;
+}
+body .game-show .game-inner .game-img:after,
+body .game-show .game-inner .game-img:before {
+  content: '';
+  display: block;
+  width: 9.1rem;
+  height: 4.3rem;
+  background: no-repeat center;
+  -webkit-background-size: contain;
+  background-size: contain;
+}
+body .game-show .game-inner .game-img:before {
+  background-image: url('../images/game/cont.png');
+  -webkit-transform: scale(0);
+  -moz-transform: scale(0);
+  -ms-transform: scale(0);
+  -o-transform: scale(0);
+  transform: scale(0);
+  animation: contShow .6s 1s forwards;
+}
+body .game-show .game-inner .game-img:after {
+  background-image: url('../images/game/fish.png');
+  animation: fishRoll 2s 1s infinite;
+}
+body .game-show .game-inner .game-btn {
+  width: 5.4rem;
+  height: 2.3rem;
+  background: url("../images/game/btn.png") no-repeat center;
+  -webkit-background-size: contain;
+  background-size: contain;
+  bottom: 1.2rem;
+  opacity: 0;
+  animation: btnDown .4s 1s forwards;
+}
+body .game-show .game-time {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+body .game-show .game-time .game-time-inner {
+  position: absolute;
+  font-size: 2rem;
+  color: #f00;
+  animation: timeAnimate 1s infinite;
+}
+@keyframes timeAnimate {
+  from {
+    opacity: 1;
+    font-size: 2rem;
+  }
+  to {
+    opacity: 0;
+    font-size: 6rem;
+  }
+}
+@keyframes gameAn {
+  0% {
+    top: -22.2rem;
+  }
+  90% {
+    top: 0;
+  }
+  100% {
+    top: -1rem;
+  }
+}
+@keyframes fishRoll {
+  0% {
+    -webkit-transform: rotateX(0);
+    -moz-transform: rotateX(0);
+    -ms-transform: rotateX(0);
+    -o-transform: rotateX(0);
+    transform: rotateX(0);
+  }
+  50% {
+    -webkit-transform: rotateX(180deg);
+    -moz-transform: rotateX(180deg);
+    -ms-transform: rotateX(180deg);
+    -o-transform: rotateX(180deg);
+    transform: rotateX(180deg);
+  }
+  100% {
+    -webkit-transform: rotateX(0);
+    -moz-transform: rotateX(0);
+    -ms-transform: rotateX(0);
+    -o-transform: rotateX(0);
+    transform: rotateX(0);
+  }
+}
+@keyframes btnDown {
+  from {
+    opacity: 0;
+    -webkit-transform: translateX(-50%) scale(4);
+    -moz-transform: translateX(-50%) scale(4);
+    -ms-transform: translateX(-50%) scale(4);
+    -o-transform: translateX(-50%) scale(4);
+    transform: translateX(-50%) scale(4);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateX(-50%) scale(1);
+    -moz-transform: translateX(-50%) scale(1);
+    -ms-transform: translateX(-50%) scale(1);
+    -o-transform: translateX(-50%) scale(1);
+    transform: translateX(-50%) scale(1);
+  }
+}
+@keyframes contShow {
+  from {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+  }
+}

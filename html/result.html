@@ -30,20 +30,21 @@
             <div class="fish center-x li-content"></div>
         </li>
         <div class="btn center-x"></div>
-        <audio src="../music/xyj.wav" autoplay id="audio"></audio>
+        <audio src="" autoplay id="audio"></audio>
     </ul>
 
     <script src="../js/zepto.min.js"></script>
     <script src="../js/reset.js"></script>
+    <script src="../js/imgLoad.js"></script>
     <script>
         $(function(){
 
-            var musicList = ['ai.wav','xyj.wav','le.wav','xiu.wav'];
+            var musicList = ['shibai.wav','benpao.mp3','le.wav','xiu.wav'];
             var audio = $('#audio')[0];
 
 
-            var num = Math.random()*3;
-            num = parseInt(num);
+            var num = getQueryString('num');
+            console.log(num)
             $('.result-list li').eq(num).addClass('cur');
 
             if(num == 0){
@@ -58,8 +59,8 @@
                 },2000)
             }
 
-            audio.src = jointSrc(musicList[num]);
-            audio.play();
+           jointSrc(musicList[num]);
+
 
             $('.btn').click(function(){
                 $('.btn').addClass('l-r');
@@ -68,9 +69,12 @@
             })
 
             function jointSrc(music){
+                if(!music) return;
                 var src = '../music/'+music;
-                return src;
+                audio.src = src;
+                audio.play();
             }
+
         })
     </script>
 </body>

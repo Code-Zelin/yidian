@@ -26,19 +26,16 @@ body .result-list:before {
   left: 0;
   position: absolute;
   content: '';
-  background: #ffc000 url('../images/result/quan.png') no-repeat center;
+  background: url('../images/result/bg.png') no-repeat center;
   -webkit-background-size: cover;
   background-size: cover;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%) scale(2) rotate(0deg);
-  -moz-transform: translate(-50%, -50%) scale(2) rotate(0deg);
-  -ms-transform: translate(-50%, -50%) scale(2) rotate(0deg);
-  -o-transform: translate(-50%, -50%) scale(2) rotate(0deg);
-  transform: translate(-50%, -50%) scale(2) rotate(0deg);
-  -webkit-animation: rotateAndMagnify 10s infinite;
-  -o-animation: rotateAndMagnify 10s infinite;
-  animation: rotateAndMagnify 10s infinite;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 html .result-list .btn,
 body .result-list .btn {
@@ -170,9 +167,6 @@ html .result-list .li-two .peoples,
 body .result-list .li-two .peoples {
   width: 9rem;
   height: 13.5rem;
-  background: url('../images/result/2/peoples.png') no-repeat center;
-  -webkit-background-size: contain;
-  background-size: contain;
   bottom: -150%;
   -webkit-transform: translate(-50%, 50%);
   -moz-transform: translate(-50%, 50%);
@@ -182,6 +176,19 @@ body .result-list .li-two .peoples {
   -webkit-animation: fishBottom 1s linear forwards;
   -o-animation: fishBottom 1s linear forwards;
   animation: fishBottom 1s linear forwards;
+}
+html .result-list .li-two .peoples:after,
+body .result-list .li-two .peoples:after {
+  content: '';
+  display: block;
+  width: 9rem;
+  height: 13.5rem;
+  background: url('../images/result/2/peoples.png') no-repeat center;
+  -webkit-background-size: contain;
+  background-size: contain;
+  animation: imgChange 1s 1s linear infinite;
+  position: absolute;
+  left: 7rem;
 }
 html .result-list .li-three,
 body .result-list .li-three {
@@ -311,5 +318,24 @@ body .result-list .li-three .fish {
     -ms-transform: translate(-50%, -50%) scale(2) rotate(0deg);
     -o-transform: translate(-50%, -50%) scale(2) rotate(0deg);
     transform: translate(-50%, -50%) scale(2) rotate(0deg);
+  }
+}
+@keyframes imgChange {
+  0% {
+    background: url('../images/result/2/peoples.png') no-repeat center;
+    -webkit-background-size: contain;
+    background-size: contain;
+    left: 7rem;
+  }
+  50% {
+    background: url('../images/result/2/peoples1.png') no-repeat center;
+    -webkit-background-size: contain;
+    background-size: contain;
+  }
+  100% {
+    background: url('../images/result/2/peoples.png') no-repeat center;
+    -webkit-background-size: contain;
+    background-size: contain;
+    left: -5rem;
   }
 }

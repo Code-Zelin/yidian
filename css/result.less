@@ -20,19 +20,16 @@ html,body{
       .position();
       position: absolute;
       content: '';
-      background: #ffc000 url('../images/result/quan.png') no-repeat center;
+      background: url('../images/result/bg.png') no-repeat center;
       -webkit-background-size: cover;
       background-size: cover;
       left: 50%;
       top: 50%;
-      -webkit-transform: translate(-50%, -50%) scale(2) rotate(0deg);
-      -moz-transform: translate(-50%, -50%) scale(2) rotate(0deg);
-      -ms-transform: translate(-50%, -50%) scale(2) rotate(0deg);
-      -o-transform: translate(-50%, -50%) scale(2) rotate(0deg);
-      transform: translate(-50%, -50%) scale(2) rotate(0deg);
-      -webkit-animation: rotateAndMagnify 10s infinite;
-      -o-animation: rotateAndMagnify 10s infinite;
-      animation: rotateAndMagnify 10s infinite;
+      -webkit-transform: translate(-50%, -50%);
+      -moz-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      -o-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
     }
     .btn{
       width: 6.7rem;
@@ -139,7 +136,6 @@ html,body{
       .peoples{
         width: 9rem;
         height: 13.5rem;
-        .bg('../images/result/2/peoples.png');
         bottom: -150%;
         -webkit-transform: translate(-50%, 50%);
         -moz-transform: translate(-50%, 50%);
@@ -149,6 +145,16 @@ html,body{
         -webkit-animation: fishBottom 1s linear forwards;
         -o-animation: fishBottom 1s linear forwards;
         animation: fishBottom 1s linear forwards;
+        &:after{
+          content: '';
+          display: block;
+          width: 9rem;
+          height: 13.5rem;
+          .bg('../images/result/2/peoples.png');
+          animation: imgChange 1s 1s linear infinite;
+          position: absolute;
+          left: 7rem;
+        }
       }
     }
     .li-three{
@@ -275,5 +281,19 @@ html,body{
     -ms-transform: translate(-50%, -50%) scale(2) rotate(0deg);
     -o-transform: translate(-50%, -50%) scale(2) rotate(0deg);
     transform: translate(-50%, -50%) scale(2) rotate(0deg);
+  }
+}
+
+@keyframes imgChange {
+  0%{
+    .bg('../images/result/2/peoples.png');
+    left: 7rem;
+  }
+  50%{
+    .bg('../images/result/2/peoples1.png');
+  }
+  100%{
+    .bg('../images/result/2/peoples.png');
+    left: -5rem;
   }
 }

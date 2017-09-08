@@ -5,111 +5,224 @@
     <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0;">
     <title>翻拍</title>
     <link rel="stylesheet" href="../css/reset.css">
-    <style>
-        body{
-            width: 15rem;
-            padding:.6rem;
-        }
-        .cart-list{
-            /*border: 1px solid #ccc;*/
-            padding: .6rem;
-            width: 13.8rem;
-        }
-        .cart-list li{
-            float: left;
-            margin-right: .6rem;
-            width: 2.7rem;
-            height: 2.7rem;
-            margin-bottom: .6rem;
-            border: 1px solid #ccc;
-            position: relative;
-        }
-        .cart-list li:nth-child(4n){
-            margin-right: 0;
-        }
-      /*  .cart-list li:after{
-            content: '';
-            display: block;
-            background: #f40;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transform: translateZ(20px);
-        }
-        .cart-list li:before{
-            content: '';
-            display: block;
-            background: #4fa;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transform: translateZ(-20px);
-        }*/
-        .quickFlip{
-            height: 500px;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/game.css">
 </head>
 <body>
-    <!--<ul class="cart-list clearfix">
-        <li id="1" cont="1"></li>
-        <li id="2" cont="1"></li>
-        <li id="3" cont="1"></li>
-        <li id="4" cont="1"></li>
-        <li id="5" cont="1"></li>
-        <li id="6" cont="1"></li>
-        <li id="7" cont="1"></li>
-        <li id="8" cont="1"></li>
-        <li id="9" cont="1"></li>
-        <li id="10" cont="1"></li>
-        <li id="11" cont="1"></li>
-        <li id="12" cont="1"></li>
-        <li id="13" cont="1"></li>
-        <li id="14" cont="1"></li>
-        <li id="15" cont="1"></li>
-        <li id="16" cont="1"></li>
-    </ul>-->
-    <div class="quickFlip">
-        <div>
-            <a href="#" class="quickFlipCta"><img src="../images/index/1.jpg" width="600" height="440" border="0" /></a>
+    <div class="game-show">
+        <div class="game-inner center-x">
+            <div class="game-font center-x"></div>
+            <div class="game-img center-x"></div>
+            <div class="game-btn center-x" onclick="btnClick()"></div>
         </div>
-
-        <div>
-            <a href="#" class="quickFlipCta"><img src="../images/index/pic2.png" width="600" height="440" border="0" /></a>
+        <div class="game-time" style="display: none;">
+            <p class="game-time-inner center-xy">3</p>
         </div>
     </div>
-    <div class="quickFlip">
-        <div>
-            <a href="#" class="quickFlipCta"><img src="../images/index/1.jpg" width="600" height="440" border="0" /></a>
-        </div>
-
-        <div>
-            <a href="#" class="quickFlipCta"><img src="../images/index/pic2.png" width="600" height="440" border="0" /></a>
-        </div>
-    </div>
+    <ul class="cart-list clearfix center-y" style="opacity: 0;">
+        <li class="outer" id="1">
+            <div class="inner1"></div>
+            <div class="inner2"></div>
+        </li>
+        <li class="outer" id="2">
+            <div class="inner1"></div>
+            <div class="inner2"></div>
+        </li>
+        <li class="outer" id="3">
+            <div class="inner1"></div>
+            <div class="inner2"></div>
+        </li>
+        <li class="outer" id="4">
+            <div class="inner1"></div>
+            <div class="inner2"></div>
+        </li>
+        <li class="outer" id="5">
+            <div class="inner1"></div>
+            <div class="inner2"></div>
+        </li>
+        <li class="outer" id="6">
+            <div class="inner1"></div>
+            <div class="inner2"></div>
+        </li>
+        <li class="outer" id="7">
+            <div class="inner1"></div>
+            <div class="inner2"></div>
+        </li>
+        <li class="outer" id="8">
+            <div class="inner1"></div>
+            <div class="inner2"></div>
+        </li>
+        <li class="outer" id="9">
+            <div class="inner1"></div>
+            <div class="inner2"></div>
+        </li>
+        <li class="outer" id="10">
+            <div class="inner1"></div>
+            <div class="inner2"></div>
+        </li>
+        <li class="outer" id="11">
+            <div class="inner1"></div>
+            <div class="inner2"></div>
+        </li>
+        <li class="outer" id="12">
+            <div class="inner1"></div>
+            <div class="inner2"></div>
+        </li>
+        <li class="outer" id="13">
+            <div class="inner1"></div>
+            <div class="inner2"></div>
+        </li>
+        <li class="outer" id="14">
+            <div class="inner1"></div>
+            <div class="inner2"></div>
+        </li>
+        <li class="outer" id="15">
+            <div class="inner1"></div>
+            <div class="inner2"></div>
+        </li>
+        <li class="outer" id="16">
+            <div class="inner1"></div>
+            <div class="inner2"></div>
+        </li>
+    </ul>
+    <audio src="../music/bgm.wav" loop autoplay></audio>
+    <audio src="" id="audio"></audio>
     <script src="../js/zepto.min.js"></script>
     <script src="../js/reset.js"></script>
-    <script src="../js/jquery.quickflip.js"></script>
     <script>
         $(function(){
             let cartNum = 16;   //卡牌数量
-            let contList = {};
-            /*for(var c=0; c<cartNum; c++){
-                let cont = Math.ceil(Math.random() * 8);
-                if(contList[cont]){
-                    contList[cont] = 2;
-                }else{
-                    contList[cont] = 1;
-                }
-                $('#'+c).attr('cont',cont);
-            }*/
+            let contList = [0,0,0,0,0,1,1,1,2,2,3,3,5,5,6,6];   //数量
 
-            $('.quickFlip').quickFlip();
+            for(var c=0; c<1000; c++){
+                let num = parseInt(Math.random()*contList.length);
+                let cNum = parseInt(Math.random()*cartNum);
+                var li = $('.cart-list li').eq(cNum);
+                if(!li.attr('cont') && li.attr('cont') != 0){
+                    li.attr('cont',contList[num]);
+                    li.addClass('had-cont');
+                    //给不同的数字加不同的图片
+                    var bgImg = '';
+                    switch (contList[num]){
+                        case 0:
+                            bgImg = 'url(../images/game/yes.png)';
+                            break;
+                        case 1:
+                            bgImg = 'url(../images/game/no1.png)';
+                            break;
+                        case 2:
+                            bgImg = 'url(../images/game/no2.png)';
+                            break;
+                        case 3:
+                            bgImg = 'url(../images/game/no3.png)';
+                            break;
+                        case 4:
+                            bgImg = 'url(../images/game/no4.png)';
+                            break;
+                        case 5:
+                            bgImg = 'url(../images/game/no5.png)';
+                            break;
+                        case 6:
+                            bgImg = 'url(../images/game/no6.png)';
+                            break;
+                    }
+                    li.children('.inner1').css({
+                        backgroundImage : bgImg
+                    })
+                    contList.splice(num, 1);
+                }
+                //数字排满后，终止循环
+                if($('.had-cont').length == 16){
+                    console.log(c)
+                    return false;
+                }
+            }
         })
+        let cartSuccess = 0, cartError = 0, cartClick = 0;
+        function btnClick(){
+            $('.game-time').show();
+            var time = 3;
+            var timer = setInterval(function(){
+                time--
+                $('.game-time-inner').text(time);
+                if(time == 0){
+                    clearInterval(timer);
+                    $('.game-show').hide();
+                    $('.cart-list').animate({
+                        opacity: 1
+                    });
+                    showCard()
+                }
+            },1000)
+
+        }
+
+        function showCard(){
+            setTimeout(function(){
+                //翻转
+                $('.outer .inner1').animate({
+                    rotateY : '-180deg'
+                });
+                $('.outer .inner2').animate({
+                    rotateY : 0
+                });
+                var canClick = true;
+                //绑定点击事件
+                $(document).on('touchstart','.outer',function(){
+                    var that = $(this), cont=that.attr('cont');
+
+                    if(canClick) {
+                        //只能翻一次
+                        if (!that.hasClass('on')) {
+                            that.addClass('on');
+                            that.children('.inner1').animate({
+                                rotateY: '0'
+                            });
+                            that.children('.inner2').animate({
+                                rotateY: '-180deg'
+                            });
+                            $('#audio').attr('src','../music/ka.ogg');
+                            $('#audio')[0].play();
+                        };
+
+                        if (cont == 0) {
+                            cartSuccess++
+                            if (cartSuccess == 5) {
+                                canClick = false;
+                                setTimeout(function(){
+                                    alert('ye!');
+                                    openWindow(2);
+                                },500)
+                                return;
+                            }
+                        } else {
+                            cartError++
+                            if (cartError == 3) {
+                                setTimeout(function(){
+                                    alert('error!');
+                                    openWindow(0);
+                                },500)
+                                canClick = false;
+                                return;
+                            }
+                        }
+                        cartClick++
+                        if(cartClick == 6){
+
+                            canClick = false;
+                            setTimeout(function(){
+                                alert('机会用完了哟');
+                                openWindow(1);
+                            },500)
+                        }
+                    }
+                })
+
+            },1500)
+        }
+
+        function openWindow(num){
+            window.location.href = 'result.html?num='+num;
+        }
     </script>
 </body>
 </html>
