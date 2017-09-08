@@ -64,8 +64,10 @@
 
             $('.btn').click(function(){
                 $('.btn').addClass('l-r');
-                audio.src = jointSrc(musicList[3]);
-                audio.play();
+               jointSrc(musicList[3]);
+                setTimeout(function(){
+                    $('.btn').removeClass('l-r');
+                },500)
             })
 
             function jointSrc(music){
