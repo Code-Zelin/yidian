@@ -64,7 +64,7 @@ body{
       -webkit-background-size: contain;
       background-size: contain;
       padding: .6rem;
-      -webkit-box-shadow:  1px 1px 2px rgba(0,0,0,.3);
+      //-webkit-box-shadow:  1px 1px 2px rgba(0,0,0,.3);
       z-index:9;
       top: 0;
       animation: gameAn 1s forwards;
@@ -127,9 +127,14 @@ body{
       z-index: 10;
       .game-time-inner{
         position: absolute;
-        font-size: 2rem;
-        color: #f00;
+        width: 4.3rem;
+        height: 6.9rem;
+        background: url("../images/game/3.png") no-repeat center;
+        -webkit-background-size: contain;
+        background-size: contain;
         animation: timeAnimate 1s infinite;
+        -webkit-transform: translate(-50%, -50%) scale(.5);
+        transform: translate(-50%, -50%) scale(.5);
       }
     }
   }
@@ -137,11 +142,13 @@ body{
 @keyframes timeAnimate {
   from{
     opacity: 1;
-    font-size: 2rem;
+    -webkit-transform: translate(-50%, -50%) scale(.5);
+    transform: translate(-50%, -50%) scale(.5);
   }
   to{
     opacity: 0;
-    font-size: 6rem;
+    -webkit-transform: translate(-50%, -50%) scale(3);
+    transform: translate(-50%, -50%) scale(3);
   }
 }
 

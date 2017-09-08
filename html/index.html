@@ -5,217 +5,30 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>加班狗</title>
+    <title>咸鱼翻身记</title>
     <link rel="stylesheet" type="text/css" href="../css/reset.css"/>
     <style>
         html,body{
-            height: 100%;
             position: relative;
-            overflow: hidden;
         }
-        .big-box{
+        html,body,canvas{
             width: 100%;
             height: 100%;
-            background: no-repeat center;
-            -webkit-background-size: cover;
-            background-size: cover;
+        }
+        canvas{
             position: absolute;
-            -webkit-transform: translate(-50%, -50%) scale(9);
-            -moz-transform: translate(-50%, -50%) scale(9);
-            -ms-transform: translate(-50%, -50%) scale(9);
-            -o-transform: translate(-50%, -50%) scale(9);
-            transform: translate(-50%, -50%) scale(9);
-        }
-        .big-box.animate{
-            -webkit-animation: bigAn 4s forwards linear;
-            animation: bigAn 4s forwards linear;
-        }
-        @keyframes bigAn {
-            0%{
-                -webkit-transform: translate(-50%, -50%) scale(9) rotate(0);
-                transform: translate(-50%, -50%) scale(9) rotate(0);
-            }
-
-            10%{
-                -webkit-transform: translate(-50%, -50%) scale(7) rotate(0);
-                transform: translate(-50%, -50%) scale(7) rotate(0);
-            }
-            25%{
-                -webkit-transform: translate(-50%, -50%) scale(6) rotate(5deg);
-                transform: translate(-50%, -50%) scale(6) rotate(5deg);
-            }
-
-            40%{
-                -webkit-transform: translate(-50%, -50%) scale(5) rotate(-5deg);
-                transform: translate(-50%, -50%) scale(5) rotate(-5deg);
-            }
-            55%{
-                -webkit-transform: translate(-50%, -50%) scale(4) rotate(5deg);
-                transform: translate(-50%, -50%) scale(4) rotate(5deg);
-            }
-
-            70%{
-                -webkit-transform: translate(-50%, -50%) scale(3) rotate(-5deg);
-                transform: translate(-50%, -50%) scale(3) rotate(-5deg);
-            }
-            85%{
-                -webkit-transform: translate(-50%, -50%) scale(2) rotate(5deg);
-                transform: translate(-50%, -50%) scale(2) rotate(5deg);
-            }
-            100%{
-                -webkit-transform: translate(-50%, -50%) scale(1) rotate(0);
-                transform: translate(-50%, -50%) scale(1) rotate(0);
-            }
-        }
-        @-webkit-keyframes bigAn {
-            0%{
-                -webkit-transform: translate(-50%, -50%) scale(9) rotate(0);
-                transform: translate(-50%, -50%) scale(9) rotate(0);
-            }
-
-            10%{
-                -webkit-transform: translate(-50%, -50%) scale(7) rotate(0);
-                transform: translate(-50%, -50%) scale(7) rotate(0);
-            }
-            25%{
-                -webkit-transform: translate(-50%, -50%) scale(6) rotate(5deg);
-                transform: translate(-50%, -50%) scale(6) rotate(5deg);
-            }
-
-            40%{
-                -webkit-transform: translate(-50%, -50%) scale(5) rotate(-5deg);
-                transform: translate(-50%, -50%) scale(5) rotate(-5deg);
-            }
-            55%{
-                -webkit-transform: translate(-50%, -50%) scale(4) rotate(5deg);
-                transform: translate(-50%, -50%) scale(4) rotate(5deg);
-            }
-
-            70%{
-                -webkit-transform: translate(-50%, -50%) scale(3) rotate(-5deg);
-                transform: translate(-50%, -50%) scale(3) rotate(-5deg);
-            }
-            85%{
-                -webkit-transform: translate(-50%, -50%) scale(2) rotate(5deg);
-                transform: translate(-50%, -50%) scale(2) rotate(5deg);
-            }
-            100%{
-                -webkit-transform: translate(-50%, -50%) scale(1) rotate(0);
-                transform: translate(-50%, -50%) scale(1) rotate(0);
-            }
-        }
-        .s-box{
-            width: 100%;
-            height: 100%;
-            background: no-repeat center;
-            -webkit-background-size: cover;
-            background-size: cover;
-            position: absolute;
-        }
-        .s-inner{
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: url("../images/index/time.png") no-repeat center;
-            -webkit-background-size: cover;
-            background-size: cover;
-        }
-        .people-box{
-            position: absolute;
-            width: 11rem;
-            height: 20rem;
-            background: url("../images/index/people.png") no-repeat center;
-            -webkit-background-size: cover;
-            background-size: cover;
-            opacity: 0;
-        }
-        .phone{
-            position: absolute;
-            z-index:10;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,.3);
             top: 0;
-            right: 0;
-            display: none;
-        }
-        .phone-inner{
-            width: 11.9rem;
-            height: 19.7rem;
-            background: url("../images/index/phone.png") no-repeat bottom right;
-            -webkit-background-size: contain;
-            background-size: contain;
-            position: absolute;
-            bottom: -19.7rem;
-            right: -11.9rem;
-            -webkit-transition: all 1s;
-            transition: all 1s;
-        }
-        .phone-inner.show{
-            bottom: 0;
-            right: 0;
+            left: 0;
+            background: #000;
         }
     </style>
 </head>
-<body>
+<body onload="canvasInit()">
+    <!--<canvas id="mainView" width="750" height="1334"></canvas>-->
 
-    <div class="phone">
-        <div class="phone-inner" onclick="clickPhone();"></div>
-    </div>
-    <div class="big-box center-xy"></div>
-    <div class="people-box center-xy"></div>
-    <div class="s-box center-xy"><div class="s-inner center-xy"></div></div>
 
-    <audio src="" id="audioPlayer"></audio>
     <script src="../js/reset.js"></script>
-    <script src="../js/zepto.min.js"></script>
-    <script src="../js/imgLoad.js"></script>
-    <script>
-        var audioPlayer = $('#audioPlayer');
-        $(function(){
-            loadImage('../images/index/s.jpg',function(){
-                loadImage('../images/index/big.jpg',function(){
-                    $('.big-box').css('background-image',"url(../images/index/big.jpg)");
-                    $('.s-box').css('background-image',"url(../images/index/s.jpg)");
-                    setTimeout(function(){
-                        $('.s-inner').css('background-image','url(../images/index/time2.png)')
-                    },1000)
-                    audioPlay('dida');
-                    setTimeout(function(){
-                        audioPlayer[0].pause();
-                        audioPlay('jiaobu');
-
-                        $('.s-box').hide();
-                        $('.big-box').addClass('animate');
-                        setTimeout(function(){
-                            audioPlayer[0].pause();
-                            audioPlay('deng')
-                            $('.people-box').animate({
-                                opacity : 1
-                            },1000)
-                            setTimeout(function(){
-                                audioPlayer[0].pause();
-                                audioPlay('ai')
-                                setTimeout(function(){
-                                    audioPlayer[0].pause();
-                                    audioPlay('6674');
-                                    $('.phone').show().children().addClass('show');
-                                },1500)
-                            },1000)
-                        },4000)
-                    },3000)
-                })
-            })
-        })
-
-        function audioPlay(src){
-            audioPlayer.attr('src','../music/'+src+'.wav');
-            audioPlayer[0].play();
-        }
-
-        function clickPhone(){
-            window.location.href = 'page.html'
-        }
-    </script>
+    <script src="../js/createjs-2015.11.26.min.js"></script>
+    <script src="../js/index/main.js"></script>
 </body>
 </html>

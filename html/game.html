@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0;">
-    <title>翻拍</title>
+    <title>翻身吧，咸鱼！</title>
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/game.css">
 </head>
@@ -15,7 +15,7 @@
             <div class="game-btn center-x" onclick="btnClick()"></div>
         </div>
         <div class="game-time" style="display: none;">
-            <p class="game-time-inner center-xy">3</p>
+            <p class="game-time-inner center-xy"></p>
         </div>
     </div>
     <ul class="cart-list clearfix center-y" style="opacity: 0;">
@@ -143,7 +143,9 @@
             var time = 3;
             var timer = setInterval(function(){
                 time--
-                $('.game-time-inner').text(time);
+                $('.game-time-inner').css({
+                    'background-image':'url(../images/game/'+time+'.png)'
+                });
                 if(time == 0){
                     clearInterval(timer);
                     $('.game-show').hide();
@@ -189,7 +191,7 @@
                             if (cartSuccess == 5) {
                                 canClick = false;
                                 setTimeout(function(){
-                                    alert('ye!');
+                                    alert('诶哟，不错哟!');
                                     openWindow(2);
                                 },500)
                                 return;
@@ -198,7 +200,7 @@
                             cartError++
                             if (cartError == 3) {
                                 setTimeout(function(){
-                                    alert('error!');
+                                    alert('哎，瞧你这损塞。');
                                     openWindow(0);
                                 },500)
                                 canClick = false;
