@@ -84,7 +84,7 @@
             <div class="inner2"></div>
         </li>
     </ul>
-    <audio src="../music/bgm.wav" loop autoplay></audio>
+    <audio src="../music/bgm.wav" loop autoplay id="bgmAudio"></audio>
     <audio src="" id="audio"></audio>
     <script src="../js/zepto.min.js"></script>
     <script src="../js/reset.js"></script>
@@ -92,6 +92,13 @@
         $(function(){
             let cartNum = 16;   //卡牌数量
             let contList = [0,0,0,0,0,1,1,1,2,2,3,3,5,5,6,6];   //数量
+
+            document.documentElement.addEventListener('touchstart',function(){
+                document.getElementById('bgmAudio').play();
+            })
+            document.addEventListener("WeixinJSBridgeReady", function () {
+                document.getElementById('bgmAudio').play();
+            }, false);
 
             for(var c=0; c<1000; c++){
                 let num = parseInt(Math.random()*contList.length);
@@ -182,7 +189,7 @@
                             that.children('.inner2').animate({
                                 rotateY: '-180deg'
                             });
-                            $('#audio').attr('src','../music/ka.ogg');
+                            $('#audio').attr('src','../music/ka.wav');
                             $('#audio')[0].play();
                         };
 

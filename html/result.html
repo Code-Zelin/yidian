@@ -39,8 +39,8 @@
     <script>
         $(function(){
 
-            var musicList = ['shibai.wav','benpao.mp3','le.wav','xiu.wav'];
-            var audio = $('#audio')[0];
+            var musicList = ['shibai.wav','benpao.wav','le.wav','xiu.wav'];
+            var audio = document.getElementById('audio');
 
 
             var num = getQueryString('num');
@@ -58,8 +58,14 @@
                     },2000)
                 },2000)
             }
-
-           jointSrc(musicList[num]);
+            jointSrc(musicList[num]);
+            document.documentElement.addEventListener('touchstart',function(){
+                jointSrc(musicList[num]);
+            })
+            document.addEventListener("WeixinJSBridgeReady", function () {
+//                document.getElementById('bgmAudio').play();
+                jointSrc(musicList[num]);
+            }, false);
 
 
             $('.btn').click(function(){
@@ -73,6 +79,7 @@
             function jointSrc(music){
                 if(!music) return;
                 var src = '../music/'+music;
+                audio.currentTime = 0;
                 audio.src = src;
                 audio.play();
             }

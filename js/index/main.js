@@ -2,7 +2,7 @@
  * Created by Administrator on 2017/8/9.
  */
 //main.js
-var canvas,stage,container,images = {},txt, bg, winWid = document.documentElement.clientWidth, winHei = document.documentElement.clientHeight;
+var canvas,stage,container,images = {}, sound = {},txt, bg, winWid = document.documentElement.clientWidth, winHei = document.documentElement.clientHeight;
 
 function canvasInit() {
     canvas = document.createElement('canvas');
@@ -20,6 +20,14 @@ function canvasInit() {
      * 预加载类
      */
     var loader = new createjs.LoadQueue(false);//这里一共可以是3个参数 第一个是是否用XHR模式加载 第二个是基础路径  第三个是跨域
+    // 关键！----设置并发数
+    loader.setMaxConnections(100);
+    // 关键！---一定要将其设置为 true, 否则不起作用。
+    loader.maintainScriptOrder=true;
+    //注意加载音频文件需要调用如下代码行
+    createjs.Sound.alternateExtensions=["wav"];
+    loader.installPlugin(createjs.Sound);
+    createjs.WebAudioPlugin.playEmptySound();
     loader.addEventListener("fileload", handleFileLoad);
     loader.addEventListener("progress",progressHandler);
     loader.addEventListener("complete",completeHandler);
@@ -37,7 +45,15 @@ function canvasInit() {
         {src:"../images/index/h.png", id:'h'},
         {src:"../images/index/people.png", id:'people'},
         {src:"../images/index/phone.png", id:'phone'},
+        {src:"../music/dida.wav",id:'dida'},
+        {src:"../music/jiaobu.wav",id:'jiaobu'},
+        {src:"../music/deng.wav",id:'deng'},
+        {src:"../music/ai.wav",id:'ai'},
+        {src:"../music/msg.wav",id:'msg'},
     ]);
+
+    //createjs.Sound.on("fileload", handleSoundLoad);
+    //createjs.Sound.registerSounds( sound, '../music/');
 
     createjs.Ticker.setFPS(30);
     createjs.Ticker.addEventListener("tick", stageBreakHandler);
@@ -45,16 +61,20 @@ function canvasInit() {
 }
 function playMusic(src){
     createjs.Sound.alternateExtensions=["wav"];
-    createjs.Sound.addEventListener("fileload", playSound);
     createjs.Sound.registerSound('../music/'+src+'.wav');
+     createjs.Sound.addEventListener("fileload", playSound);
     function playSound(e){
-        soundInstance = createjs.Sound.play(e.src);
-        //soundInstance.addEventListener("complete",completeHandler);
+        //createjs.Sound.play(e.src);
+        sound[src] = e.src;
+        console.log(sound)
     }
 }
-
 function handleFileLoad(evt) {
     if (evt.item.type == "image") { images[evt.item.id] = evt.result; }
+    if (evt.item.type == "sound" && evt.item.ext == 'wav') {
+        createjs.Sound.registerSound('../music/'+evt.item.id+'.wav');
+    }
+
     //这是单个文件加载完成的事件，把它保存到一个地方之后可以直接拿来创建对象
     txt = new createjs.Text('加载进度',"16px Times","#fff");
     txt.x = winWid/2 - 30 ;                   //改变txt  X的坐标（在canvas中距离 左侧 的坐标）
@@ -76,116 +96,144 @@ function progressHandler(event)
 }
 function completeHandler(event)
 {
+    //container.removeChild(txt);
+    //txt = new createjs.Text('加载进度',"16px Times","#000000");
+    //txt.x = winWid/2 - 30 ;                   //改变txt  X的坐标（在canvas中距离 左侧 的坐标）
+    //txt.y = winHei/2 - 45 ;                   //改变txt  Y的坐标（在canvas中距离 顶部 的坐标）
+    //container.addChild(txt); //完成之后需要添加到stage中才能正常显示
     container.removeChild(txt);
-    container.removeChild(bg);
+    //这是单个文件加载完成的事件，把它保存到一个地方之后可以直接拿来创建对象
+    txt = new createjs.Text('点击屏幕任何地方开始吧',"16px Times","#fff");
+    txt.x = winWid/2 - 90 ;                   //改变txt  X的坐标（在canvas中距离 左侧 的坐标）
+    txt.y = winHei/2 - 75 ;                   //改变txt  Y的坐标（在canvas中距离 顶部 的坐标）
+    container.addChild(txt); //完成之后需要添加到stage中才能正常显示
 
     //全部加载完成
     event.currentTarget.removeEventListener("fileload",handleFileLoad);
     event.currentTarget.removeEventListener("progress",progressHandler);
     event.currentTarget.removeEventListener("complete",completeHandler);
-    playMusic('dida');
-    var sJpg = new createjs.Bitmap(images.small);
-    var s1Jpg = new createjs.Bitmap(images.s1);
-    var s2Jpg = new createjs.Bitmap(images.s2);
 
-    var sArr = [];
-    sArr[0] = new createjs.Bitmap(images.s3);
-    sArr[1] = new createjs.Bitmap(images.s4);
-    sArr[2] = new createjs.Bitmap(images.s5);
-    sArr[3] = new createjs.Bitmap(images.s6);
+   //点击开始
+    canvas.addEventListener('touchstart',function(){
+        container.removeChild(txt);
+        container.removeChild(bg);
 
-    var m1Jpg = new createjs.Bitmap(images.m1);
-    var m2Jpg = new createjs.Bitmap(images.m2);
-    var hJpg = new createjs.Bitmap(images.h);
+        //播放钟声 TODO
+        //playMusic('dida');
+        createjs.Sound.play('dida');
+        var sJpg = new createjs.Bitmap(images.small);
+        var s1Jpg = new createjs.Bitmap(images.s1);
+        var s2Jpg = new createjs.Bitmap(images.s2);
 
-    getImgWH(sJpg);
+        var sArr = [];
+        sArr[0] = new createjs.Bitmap(images.s3);
+        sArr[1] = new createjs.Bitmap(images.s4);
+        sArr[2] = new createjs.Bitmap(images.s5);
+        sArr[3] = new createjs.Bitmap(images.s6);
 
-    getImgWH(sArr[0]);
-    getImgWH(m1Jpg);
-    getImgWH(hJpg);
+        var m1Jpg = new createjs.Bitmap(images.m1);
+        var m2Jpg = new createjs.Bitmap(images.m2);
+        var hJpg = new createjs.Bitmap(images.h);
 
-    /*setTimeout(function(){
-        container.removeChild(timeJpg);
-        getImgWH(time2Jpg);
-    },1000)*/
+        getImgWH(sJpg);
 
-    //秒针动画
-    var sTime = 0;
-    var sTimer = setInterval(function(){
-        container.removeChild(sArr[sTime]);
-        sTime ++
-        getImgWH(sArr[sTime]);
-        if(sTime == 3){
-            container.removeChild(m1Jpg);
-            getImgWH(m2Jpg);
-            clearInterval(sTimer);
-        }
-    },1000)
+        getImgWH(sArr[0]);
+        getImgWH(m1Jpg);
+        getImgWH(hJpg);
 
-    setTimeout(function(){
-        var bigJpg = new createjs.Bitmap(images.big);
-        //获取图片大小
-        var bigWid = bigJpg.image.naturalWidth, bigHei = bigJpg.image.naturalHeight;
-        //改变图片尺寸
-        //当图片尺寸大于16:9的话，放大撑满高，反之，撑满宽，剩下的自适应
-        var scale = ( bigWid / winWid ) < ( bigHei / winHei) ? ( bigWid / winWid ) : ( bigHei / winHei ) ;
-        bigJpg.scaleX = 1.15;
-        bigJpg.scaleY = 1.15;
-        //改变图片位置
-        bigJpg.x = (winWid - bigWid * 1.15) / 2;
-        bigJpg.y = (winHei - bigHei * 1.15) / 2;
-        container.addChild(bigJpg);
-        playMusic('jiaobu');
-        createjs.Tween.get(bigJpg).to({
-            scaleX: 1/scale,
-            scaleY: 1/scale,
-            x : (winWid - bigWid / scale) / 2,
-            y : (winHei - bigHei / scale ) / 2
-        },4000).call(function(){
+        /*setTimeout(function(){
+         container.removeChild(timeJpg);
+         getImgWH(time2Jpg);
+         },1000)*/
+
+        //秒针动画
+        var sTime = 0;
+        var sTimer = setInterval(function(){
+            container.removeChild(sArr[sTime]);
+            sTime ++
+            getImgWH(sArr[sTime]);
+            if(sTime == 3){
+                container.removeChild(m1Jpg);
+                getImgWH(m2Jpg);
+                clearInterval(sTimer);
+            }
+        },1000)
+
+        setTimeout(function(){
+            var bigJpg = new createjs.Bitmap(images.big);
+            //获取图片大小
+            var bigWid = bigJpg.image.naturalWidth, bigHei = bigJpg.image.naturalHeight;
+            //改变图片尺寸
+            //当图片尺寸大于16:9的话，放大撑满高，反之，撑满宽，剩下的自适应
+            var scale = ( bigWid / winWid ) < ( bigHei / winHei) ? ( bigWid / winWid ) : ( bigHei / winHei ) ;
+            bigJpg.scaleX = 1.15;
+            bigJpg.scaleY = 1.15;
+            //改变图片位置
+            bigJpg.x = (winWid - bigWid * 1.15) / 2;
+            bigJpg.y = (winHei - bigHei * 1.15) / 2;
+            container.addChild(bigJpg);
+            //播放脚步声 TODO
+            //playMusic('jiaobu');
+            createjs.Sound.play('jiaobu');
+            createjs.Tween.get(bigJpg).to({
+                scaleX: 1/scale,
+                scaleY: 1/scale,
+                x : (winWid - bigWid / scale) / 2,
+                y : (winHei - bigHei / scale ) / 2
+            },5000)
             setTimeout(function(){
-                var people = new createjs.Bitmap(images.people);
-                getImgWH(people,.61,function(){
-                    people.alpha = 0
-                })
-                playMusic('deng');
                 setTimeout(function(){
-                    createjs.Tween.get(people).to({
-                        alpha : 1
-                    },1000).call(function(){
-                        playMusic('ai');
-                        setTimeout(function(){
-                            playMusic('6674');
-                            var phone = new createjs.Bitmap(images.phone);
-                            setTimeout(function(){
-
-                                var shape=new createjs.Shape();
-                                var graphics=shape.graphics;
-                                graphics.beginFill('rgba(0,0,0,0.3)');
-                                graphics.drawRect(0,0,winWid,winHei);
-                                container.addChild(shape);
-
-                                getImgWH(phone, .6,function(){
-                                    phone.x = winWid + phone.image.naturalWidth * phone.scaleX;
-                                    phone.y = winHei + phone.image.naturalHeight * phone.scaleY;
-                                    phone.alpha = 0;
-                                })
-
-                                createjs.Tween.get(phone).to({
-                                    x : winWid - phone.image.naturalWidth * phone.scaleX,
-                                    y : winHei - phone.image.naturalHeight * phone.scaleY,
-                                    alpha : 1
-                                },500).call(function(){
-                                    phone.addEventListener("click",function(){
-                                        window.location.href = 'page.html';
-                                    })
-                                })
-                            },500)
-                        },2000)
+                    var people = new createjs.Bitmap(images.people);
+                    getImgWH(people,.61,function(){
+                        people.alpha = 0
                     })
-                },1000)
-            })
-        });
-    },4000)
+                    //播放关灯声
+                    //playMusic('deng');
+                    createjs.Sound.play('deng');
+                    setTimeout(function(){
+                        createjs.Tween.get(people).to({
+                            alpha : 1
+                        },1000).call(function(){
+                            //叹气
+                            //playMusic('ai');
+                            createjs.Sound.play('ai');
+                            setTimeout(function(){
+                                //短信提醒
+                                //playMusic('msg');
+                                createjs.Sound.play('msg');
+                                var phone = new createjs.Bitmap(images.phone);
+                                setTimeout(function(){
+
+                                    var shape=new createjs.Shape();
+                                    var graphics=shape.graphics;
+                                    graphics.beginFill('rgba(0,0,0,0.3)');
+                                    graphics.drawRect(0,0,winWid,winHei);
+                                    container.addChild(shape);
+
+                                    getImgWH(phone,.6,function(){
+                                        phone.x = winWid + phone.image.naturalWidth * phone.scaleX;
+                                        phone.y = winHei + phone.image.naturalHeight * phone.scaleY;
+                                        phone.alpha = 0;
+                                    })
+
+                                    createjs.Tween.get(phone).to({
+                                        x : winWid - phone.image.naturalWidth * phone.scaleX,
+                                        y : winHei - phone.image.naturalHeight * phone.scaleY,
+                                        alpha : 1
+                                    },500)
+                                    setTimeout(function(){
+                                        phone.addEventListener("click",function(){
+                                            window.location.href = 'page.html';
+                                        })
+                                    },500)
+                                },500)
+                            },2000)
+                        })
+                    },1000)
+                })
+            },5000);
+        },4000)
+    })
 }
 function stageBreakHandler(event)
 {
